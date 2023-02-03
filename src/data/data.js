@@ -1,7 +1,7 @@
 export const USERS = [
   { id: 1, name: "Bekti", age: 23, image: "Bekti.jpg" },
   { id: 2, name: "Sergei", age: 19, image: "Sergei.jpg" },
-  { id: 3, name: "Egor", age: 26, image: "Egor.jpg" },
+  { id: 3, name: "Egorr", age: 26, image: "Egor.jpg" },
   { id: 4, name: "Ilya", age: 23, image: "Ilya.jpg" },
 ];
 
