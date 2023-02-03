@@ -1,44 +1,60 @@
 import React from "react";
 import { Formik, Field, Form, useFormik } from "formik";
-import { Box, Button } from "@mui/material";
+import { Box, Button, unstable_useId } from "@mui/material";
 import { TextField } from "@mui/material";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../../features/users/usersSlice";
+import { v4 as uuid } from "uuid";
 
 const FormUser = () => {
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      age: "",
-    },
-    onSubmit: (values) => {
-      console.log(values);
-    },
-  });
+
+  const [user, setUser] = useState({
+    name: '',
+    age: ''
+  })
+
+  const dispatch = useDispatch()
+  const users = useSelector((state) => state.users)
+
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(addUser({ ...user, id: uuid() }))
+    
+  }
+  
 
   return (
     <Box width="300px" height="300px" margin="20px auto">
-      <form onSubmit={formik.handleSubmit}>
-        <TextField
-          fullWidth
+      <form onSubmit={handleSubmit}>
+        <input
+          
           id="name"
           name="name"
           label="name"
-          value={formik.values.name}
-          onChange={formik.handleChange}
+          value={user.name}
+          onChange={handleChange}
           sx={{ margin: "10px 0" }}
         />
-        <TextField
-          fullWidth
+        <input
+          
           id="age"
           name="age"
           label="age"
-          value={formik.values.age}
-          onChange={formik.handleChange}
+          value={user.age}
+          onChange={handleChange}
           sx={{ margin: "10px 0" }}
         />
-        <Button color="primary" variant="contained" fullWidth type="submit">
+        <button  type="submit">
           Submit
-        </Button>
+        </button>
       </form>
     </Box>
   );
